@@ -1,0 +1,6 @@
+beautifulsoup4  # for parsing HTML
+rich # for pretty printing
+
+requests # for making HTTP requests (sync)
+httpx # for making HTTP requests (sync or async)
+aiohttp # for making HTTP requests (async)
