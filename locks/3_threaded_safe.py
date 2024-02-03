@@ -1,4 +1,4 @@
-"""Interact."""
+"""Run simulated banking transactions."""
 import random
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -21,13 +21,11 @@ def main() -> None:
     """Run the main program."""
     t0 = time.time()
     print(f"\ninitial={BANK_DATA}\n", flush=True)
-    validate_bank()
     run_transactions()
     total_seconds = time.time() - t0
 
     print(f"\n\nfinal={BANK_DATA}", flush=True)
     print(f"sum={sum(BANK_DATA.values())}", flush=True)
-    validate_bank()
     print(
         f"\n[bold green]Code run in [cyan]{total_seconds:,.2f}[green] seconds.",
         flush=True,
@@ -35,9 +33,9 @@ def main() -> None:
 
 
 def run_transactions() -> None:
-    """Run a series of bank transactions synchronously."""
+    """Run a series of bank transactions."""
     tasks = []
-    for _ in range(50):
+    for _ in range(20):
         banks = list(BANK_DATA.keys())
         sending_bank = random.choice(banks)
         banks.remove(sending_bank)
@@ -48,20 +46,16 @@ def run_transactions() -> None:
             (run_transaction, (sending_bank, receiving_bank), {"amount": amount})
         )
     with ThreadPoolExecutor() as executor:
-        for task in tasks:
-            func, args, kwargs = task
-            executor.submit(func, *args, **kwargs)
+        [executor.submit(func, *args, **kwargs) for func, args, kwargs in tasks]
 
 
 def run_transaction(sending_bank: str, receiving_bank: str, amount) -> None:
     """Run a bank transaction."""
-    print(".", end="", flush=True)
     verify_user()
-
     with TRANSACTION_LOCK:
         update_bank(sending_bank, -amount)
         update_bank(receiving_bank, amount)
-    validate_bank()
+    print(".", end="", flush=True)
 
 
 def verify_user() -> None:
@@ -71,15 +65,11 @@ def verify_user() -> None:
 
 def update_bank(bank_name: str, amount: int) -> None:
     """Update the bank data."""
+    amount_before = BANK_DATA[bank_name]
     time.sleep(0.0001)
-    BANK_DATA[bank_name] += amount
-
-
-def validate_bank() -> None:
-    """Validate bank data."""
-    bank_sum = sum(BANK_DATA.values())
-    if bank_sum != 5000:
-        print(f"Bank data is incorrect: {bank_sum=}", flush=True)
+    new_amount = amount_before + amount
+    BANK_DATA[bank_name] = new_amount
+    time.sleep(0.0001)
 
 
 if __name__ == "__main__":
