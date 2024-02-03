@@ -56,7 +56,6 @@ def run_transaction(sending_bank: str, receiving_bank: str, amount) -> None:
     verify_user()
 
     update_bank(sending_bank, -amount)
-    time.sleep(0.0001)
     update_bank(receiving_bank, amount)
 
     validate_bank()
@@ -69,6 +68,7 @@ def verify_user() -> None:
 
 def update_bank(bank_name: str, amount: int) -> None:
     """Update the bank data."""
+    time.sleep(0.0001)
     BANK_DATA[bank_name] += amount
 
 

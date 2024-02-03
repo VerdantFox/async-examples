@@ -71,6 +71,7 @@ def verify_user() -> None:
 
 def update_bank(bank_name: str, amount: int) -> None:
     """Update the bank data."""
+    time.sleep(0.0001)
     BANK_DATA[bank_name] += amount
 
 

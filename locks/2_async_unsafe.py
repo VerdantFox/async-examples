@@ -50,7 +50,6 @@ async def run_transaction(sending_bank: str, receiving_bank: str, amount) -> Non
     await verify_user()
 
     await update_bank(sending_bank, -amount)
-    await asyncio.sleep(0.0001)
     await update_bank(receiving_bank, amount)
 
     validate_bank()
@@ -63,6 +62,7 @@ async def verify_user() -> None:
 
 async def update_bank(bank_name: str, amount: int) -> None:
     """Update the bank data."""
+    await asyncio.sleep(0.0001)
     BANK_DATA[bank_name] += amount
 
 
