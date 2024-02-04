@@ -30,18 +30,6 @@ async def download_pokemon_list() -> list[tuple[int, str]]:
     return results
 
 
-async def download_pokemon_list_alternative() -> list[tuple[int, str]]:
-    """Download a list of pokemon from 'pokemondb'."""
-    coroutines = [download_single_pokemon(num) for num in range(1, 21)]
-    loop = asyncio.get_event_loop()
-    print("Gathering coroutines into tasks...", flush=True)
-    tasks = [loop.create_task(c) for c in coroutines]
-    print("Done gathering tasks. Running + awaiting tasks...", flush=True)
-    results = [await t for t in tasks]
-    print("Done gathering results.", flush=True)
-    return results
-
-
 async def download_single_pokemon(pokemon_num: int = 1) -> tuple[int, str]:
     """Get a pokemon from 'pokemondb' by its pokedex number."""
     print(
