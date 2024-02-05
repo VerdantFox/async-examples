@@ -2,7 +2,7 @@
 import random
 import time
 from concurrent.futures import ThreadPoolExecutor
-from threading import RLock
+import threading
 
 from rich import print
 
@@ -14,7 +14,7 @@ BANK_DATA = {
     "bank_5": 1000,
 }
 
-TRANSACTION_LOCK = RLock()
+TRANSACTION_LOCK = threading.RLock()
 
 
 def main() -> None:

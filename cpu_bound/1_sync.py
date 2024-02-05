@@ -1,6 +1,5 @@
 """Do some CPU bound work synchronously."""
 import time
-from concurrent.futures.process import ProcessPoolExecutor
 
 from rich import print
 

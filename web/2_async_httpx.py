@@ -1,4 +1,9 @@
-"""Download the first 20 pokemon asynchronously using httpx."""
+"""Download the first 20 pokemon asynchronously using httpx.
+
+`httpx` code looks similar to `requests` code, and it feels nicer to work with
+than `aiohttp` code. However, I found it significantly slower than `aiohttp` in
+my tests for `async` code.
+"""
 import asyncio
 import time
 
@@ -8,8 +13,8 @@ from rich import print
 
 
 def main() -> None:
-    print("Starting tasks...", flush=True)
     t0 = time.time()
+    print("Starting coordinating coroutine...", flush=True)
     results = asyncio.run(download_pokemon_list())
     total_seconds = time.time() - t0
     print(
@@ -21,6 +26,7 @@ def main() -> None:
 
 async def download_pokemon_list() -> list[tuple[int, str]]:
     """Download a list of pokemon from 'pokemondb'."""
+    print("Creating coroutine objects...", flush=True)
     coroutines = [download_single_pokemon(num) for num in range(1, 21)]
     print("Gathering coroutines into tasks...", flush=True)
     tasks = asyncio.gather(*coroutines)
@@ -36,12 +42,13 @@ async def download_single_pokemon(pokemon_num: int = 1) -> tuple[int, str]:
         f"[yellow]Downloading pokemon {pokemon_num:02}... [/yellow]",
         flush=True,
     )
-    url = f"https://pokemondb.net/pokedex/{pokemon_num:02}={pokemon_num}"
+    url = f"https://pokemondb.net/pokedex/{pokemon_num}"
     async with httpx.AsyncClient() as client:
         resp = await client.get(url, follow_redirects=True)
         resp.raise_for_status()
+    text = resp.text
     resp.raise_for_status()
-    header = get_h1(resp.text)
+    header = get_h1(text)
     print(
         f"[green]Retrieved [magenta]{header}",
         flush=True,

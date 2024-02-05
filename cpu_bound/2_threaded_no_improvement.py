@@ -1,6 +1,6 @@
 """Do some CPU bound work synchronously."""
 import time
-from concurrent.futures.process import ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor as PoolExecutor
 from typing import Any, Callable
 
 from rich import print
@@ -29,7 +29,7 @@ def do_lots_of_math() -> list[float]:
         for num in range(1, 21)
     ]
     print("Kick off multiprocess tasks...", flush=True)
-    with ProcessPoolExecutor() as executor:
+    with PoolExecutor() as executor:
         work = [executor.submit(func, *args, **kwargs) for func, args, kwargs in tasks]
         print("Waiting for work...", flush=True)
     print("Done with work", flush=True)

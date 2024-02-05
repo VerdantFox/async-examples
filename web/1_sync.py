@@ -7,8 +7,8 @@ from rich import print
 
 
 def main() -> None:
-    print("Starting tasks...", flush=True)
     t0 = time.time()
+    print("Starting coordinating function...", flush=True)
     results = download_pokemon_list()
     total_seconds = time.time() - t0
     print(

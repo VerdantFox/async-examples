@@ -41,11 +41,10 @@ def run_transactions() -> None:
 
 def run_transaction(sending_bank: str, receiving_bank: str, amount) -> None:
     """Run a bank transaction."""
-    print(".", end="", flush=True)
     verify_user()
-
-    update_bank(receiving_bank, amount)
     update_bank(sending_bank, -amount)
+    update_bank(receiving_bank, amount)
+    print(".", end="", flush=True)
 
 
 def verify_user() -> None:
