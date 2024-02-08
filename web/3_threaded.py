@@ -1,4 +1,4 @@
-"""Download the first 20 pokemon with threads."""
+"""Download the first 20 Pokémon with threads."""
 import time
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Callable
@@ -14,7 +14,7 @@ def main() -> None:
     results = download_pokemon_list()
     total_seconds = time.time() - t0
     print(
-        f"\n[bold green]Code run in [cyan]{total_seconds:,.2f}[green] seconds.",
+        f"\n[bold green]The code ran in [cyan]{total_seconds:,.2f}[green] seconds.",
         flush=True,
     )
     print(f"\n{results=}", flush=True)
@@ -24,7 +24,7 @@ TaskType = tuple[Callable[..., Any], tuple[Any, ...], dict[str, Any]]
 
 
 def download_pokemon_list() -> list[tuple[int, str]]:
-    """Download a list of pokemon from 'pokemondb'."""
+    """Download a list of Pokémon from 'pokemondb.net'."""
     print("Defining tasks...", flush=True)
     tasks: list[TaskType] = [
         # Function, args, kwargs
@@ -40,9 +40,9 @@ def download_pokemon_list() -> list[tuple[int, str]]:
 
 
 def download_single_pokemon(pokemon_num: int = 1) -> tuple[int, str]:
-    """Get a pokemon from 'pokemondb' by its pokedex number."""
+    """Get a Pokémon from 'pokemondb.net' by its pokedex number."""
     print(
-        f"[yellow]Downloading pokemon {pokemon_num:02}... [/yellow]",
+        f"[yellow]Downloading Pokémon {pokemon_num:02}... [/yellow]",
         flush=True,
     )
     url = f"https://pokemondb.net/pokedex/{pokemon_num}"

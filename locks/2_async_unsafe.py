@@ -24,7 +24,7 @@ def main() -> None:
     print(f"\n\nfinal={BANK_DATA}", flush=True)
     print(f"sum={sum(BANK_DATA.values())}", flush=True)
     print(
-        f"\n[bold green]Code run in [cyan]{total_seconds:,.2f}[green] seconds.",
+        f"\n[bold green]The code ran in [cyan]{total_seconds:,.2f}[green] seconds.",
         flush=True,
     )
 

@@ -1,4 +1,4 @@
-"""Download the first 20 pokemon asynchronously with various alternative methods."""
+"""Download the first 20 Pokémon asynchronously with various alternative methods."""
 import asyncio
 import time
 
@@ -13,7 +13,7 @@ def main() -> None:
     results = coordinate_from_sync()
     total_seconds = time.time() - t0
     print(
-        f"\n[bold green]Code run in [cyan]{total_seconds:,.2f}[green] seconds.",
+        f"\n[bold green]The code ran in [cyan]{total_seconds:,.2f}[green] seconds.",
         flush=True,
     )
     print(f"\n{results=}", flush=True)
@@ -46,7 +46,7 @@ def coordinate_from_sync():
 
 
 async def download_pokemon_list_gather() -> list[tuple[int, str]]:
-    """Download a list of pokemon from 'pokemondb' using  `asyncio.gather`."""
+    """Download a list of Pokémon from 'pokemondb.net' using  `asyncio.gather`."""
     print("Creating coroutine objects...", flush=True)
     coroutines = [download_single_pokemon(num) for num in range(1, 21)]
     print("Gathering coroutines into tasks...", flush=True)
@@ -58,7 +58,7 @@ async def download_pokemon_list_gather() -> list[tuple[int, str]]:
 
 
 async def download_pokemon_list_manual() -> list[tuple[int, str]]:
-    """Download a list of pokemon from 'pokemondb'.
+    """Download a list of Pokémon from 'pokemondb.net'.
 
     Manually get the event loop, create and await tasks."""
     coroutines = [download_single_pokemon(num) for num in range(1, 21)]
@@ -72,7 +72,7 @@ async def download_pokemon_list_manual() -> list[tuple[int, str]]:
 
 
 async def download_pokemon_list_task_group() -> list[tuple[int, str]]:
-    """Download a list of pokemon from 'pokemondb' using  a task group.
+    """Download a list of Pokémon from 'pokemondb.net' using  a task group.
 
     Task groups are only available in Python 3.11+.
 
@@ -88,9 +88,9 @@ async def download_pokemon_list_task_group() -> list[tuple[int, str]]:
 
 
 async def download_single_pokemon(pokemon_num: int = 1) -> tuple[int, str]:
-    """Get a pokemon from 'pokemondb' by its pokedex number."""
+    """Get a Pokémon from 'pokemondb.net' by its pokedex number."""
     print(
-        f"[yellow]Downloading pokemon {pokemon_num:02}... [/yellow]",
+        f"[yellow]Downloading Pokémon {pokemon_num:02}... [/yellow]",
         flush=True,
     )
     url = f"https://pokemondb.net/pokedex/{pokemon_num}"

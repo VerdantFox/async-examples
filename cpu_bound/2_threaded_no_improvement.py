@@ -12,7 +12,7 @@ def main():
     results = do_lots_of_math()
     total_seconds = time.time() - t0
     print(
-        f"\n[bold green]Code run in [cyan]{total_seconds:,.2f}[green] seconds.",
+        f"\n[bold green]The code ran in [cyan]{total_seconds:,.2f}[green] seconds.",
         flush=True,
     )
     print(f"\n{results=}", flush=True)
